@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.graduation.project.bas.mapper.RestaurantMapper">
+  <resultMap id="BaseResultMap" type="com.nju.graduation.project.bas.domain.Restaurant">
+    <id column="restaurant_id" jdbcType="INTEGER" property="restaurantId" />
+    <result column="manager_id" jdbcType="INTEGER" property="managerId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="second_type_id" jdbcType="INTEGER" property="secondTypeId" />
+    <result column="restaurant_phone" jdbcType="VARCHAR" property="restaurantPhone" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="adcode" jdbcType="VARCHAR" property="adcode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
+    <result column="business_state" jdbcType="TINYINT" property="businessState" />
+    <result column="distribute_type" jdbcType="TINYINT" property="distributeType" />
+    <result column="audit_type" jdbcType="TINYINT" property="auditType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    restaurant_id, manager_id, name, head_portrait, second_type_id, restaurant_phone, 
+    city, city_id, adcode, address, longitude, latitude, start_time, end_time, business_state, 
+    distribute_type, audit_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from restaurant
+    where restaurant_id = #{restaurantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from restaurant
+    where restaurant_id = #{restaurantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.graduation.project.bas.domain.Restaurant">
+    insert into restaurant (restaurant_id, manager_id, name, 
+      head_portrait, second_type_id, restaurant_phone, 
+      city, city_id, adcode, 
+      address, longitude, latitude, 
+      start_time, end_time, business_state, 
+      distribute_type, audit_type)
+    values (#{restaurantId,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{headPortrait,jdbcType=VARCHAR}, #{secondTypeId,jdbcType=INTEGER}, #{restaurantPhone,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{cityId,jdbcType=INTEGER}, #{adcode,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}, #{businessState,jdbcType=TINYINT}, 
+      #{distributeType,jdbcType=TINYINT}, #{auditType,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.graduation.project.bas.domain.Restaurant">
+    insert into restaurant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="restaurantId != null">
+        restaurant_id,
+      </if>
+      <if test="managerId != null">
+        manager_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="headPortrait != null">
+        head_portrait,
+      </if>
+      <if test="secondTypeId != null">
+        second_type_id,
+      </if>
+      <if test="restaurantPhone != null">
+        restaurant_phone,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="adcode != null">
+        adcode,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="businessState != null">
+        business_state,
+      </if>
+      <if test="distributeType != null">
+        distribute_type,
+      </if>
+      <if test="auditType != null">
+        audit_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="restaurantId != null">
+        #{restaurantId,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null">
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="secondTypeId != null">
+        #{secondTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantPhone != null">
+        #{restaurantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="adcode != null">
+        #{adcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="businessState != null">
+        #{businessState,jdbcType=TINYINT},
+      </if>
+      <if test="distributeType != null">
+        #{distributeType,jdbcType=TINYINT},
+      </if>
+      <if test="auditType != null">
+        #{auditType,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.graduation.project.bas.domain.Restaurant">
+    update restaurant
+    <set>
+      <if test="managerId != null">
+        manager_id = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="headPortrait != null">
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="secondTypeId != null">
+        second_type_id = #{secondTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantPhone != null">
+        restaurant_phone = #{restaurantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="adcode != null">
+        adcode = #{adcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="businessState != null">
+        business_state = #{businessState,jdbcType=TINYINT},
+      </if>
+      <if test="distributeType != null">
+        distribute_type = #{distributeType,jdbcType=TINYINT},
+      </if>
+      <if test="auditType != null">
+        audit_type = #{auditType,jdbcType=TINYINT},
+      </if>
+    </set>
+    where restaurant_id = #{restaurantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.graduation.project.bas.domain.Restaurant">
+    update restaurant
+    set manager_id = #{managerId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      second_type_id = #{secondTypeId,jdbcType=INTEGER},
+      restaurant_phone = #{restaurantPhone,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=INTEGER},
+      adcode = #{adcode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
+      business_state = #{businessState,jdbcType=TINYINT},
+      distribute_type = #{distributeType,jdbcType=TINYINT},
+      audit_type = #{auditType,jdbcType=TINYINT}
+    where restaurant_id = #{restaurantId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 手动添加 -->
+  <select id="listAllRestaurantByManagerId" parameterType="com.nju.graduation.project.bas.domain.Restaurant" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from restaurant
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </select>
+</mapper>

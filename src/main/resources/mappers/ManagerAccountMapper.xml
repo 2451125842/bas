@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.graduation.project.bas.mapper.ManagerAccountMapper">
+  <resultMap id="BaseResultMap" type="com.nju.graduation.project.bas.domain.ManagerAccount">
+    <id column="manager_id" jdbcType="INTEGER" property="managerId" />
+    <result column="nakename" jdbcType="VARCHAR" property="nakename" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="real_name_authentication" jdbcType="TINYINT" property="realNameAuthentication" />
+    <result column="last_login_restaurant" jdbcType="INTEGER" property="lastLoginRestaurant" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    manager_id, nakename, password, phone, real_name_authentication, last_login_restaurant
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from manager
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from manager
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.graduation.project.bas.domain.ManagerAccount">
+    insert into manager (manager_id, nakename, password, 
+      phone, real_name_authentication, last_login_restaurant
+      )
+    values (#{managerId,jdbcType=INTEGER}, #{nakename,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=CHAR}, #{realNameAuthentication,jdbcType=TINYINT}, #{lastLoginRestaurant,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.graduation.project.bas.domain.ManagerAccount">
+    insert into manager
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="managerId != null">
+        manager_id,
+      </if>
+      <if test="nakename != null">
+        nakename,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="realNameAuthentication != null">
+        real_name_authentication,
+      </if>
+      <if test="lastLoginRestaurant != null">
+        last_login_restaurant,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="managerId != null">
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="nakename != null">
+        #{nakename,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="realNameAuthentication != null">
+        #{realNameAuthentication,jdbcType=TINYINT},
+      </if>
+      <if test="lastLoginRestaurant != null">
+        #{lastLoginRestaurant,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.graduation.project.bas.domain.ManagerAccount">
+    update manager
+    <set>
+      <if test="nakename != null">
+        nakename = #{nakename,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="realNameAuthentication != null">
+        real_name_authentication = #{realNameAuthentication,jdbcType=TINYINT},
+      </if>
+      <if test="lastLoginRestaurant != null">
+        last_login_restaurant = #{lastLoginRestaurant,jdbcType=INTEGER},
+      </if>
+    </set>
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.graduation.project.bas.domain.ManagerAccount">
+    update manager
+    set nakename = #{nakename,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=CHAR},
+      real_name_authentication = #{realNameAuthentication,jdbcType=TINYINT},
+      last_login_restaurant = #{lastLoginRestaurant,jdbcType=INTEGER}
+    where manager_id = #{managerId,jdbcType=INTEGER}
+  </update>
+
+  <!--  手动补充  -->
+  <select id="selectByPhoneAndPassword" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from manager
+    where phone = #{phone,jdbcType=CHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from manager
+    where phone = #{phone,jdbcType=CHAR}
+  </select>
+</mapper>

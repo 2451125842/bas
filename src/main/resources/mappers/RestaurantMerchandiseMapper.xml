@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.graduation.project.bas.mapper.RestaurantMerchandiseMapper">
+  <resultMap id="BaseResultMap" type="com.nju.graduation.project.bas.domain.RestaurantMerchandise">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="restaurant_id" jdbcType="INTEGER" property="restaurantId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="photo_address" jdbcType="VARCHAR" property="photoAddress" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, restaurant_id, name, photo_address, price, number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from restaurant_merchandise
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from restaurant_merchandise
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nju.graduation.project.bas.domain.RestaurantMerchandise">
+    insert into restaurant_merchandise (id, restaurant_id, name, 
+      photo_address, price, number
+      )
+    values (#{id,jdbcType=INTEGER}, #{restaurantId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{photoAddress,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nju.graduation.project.bas.domain.RestaurantMerchandise">
+    insert into restaurant_merchandise
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="restaurantId != null">
+        restaurant_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="photoAddress != null">
+        photo_address,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantId != null">
+        #{restaurantId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="photoAddress != null">
+        #{photoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nju.graduation.project.bas.domain.RestaurantMerchandise">
+    update restaurant_merchandise
+    <set>
+      <if test="restaurantId != null">
+        restaurant_id = #{restaurantId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="photoAddress != null">
+        photo_address = #{photoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nju.graduation.project.bas.domain.RestaurantMerchandise">
+    update restaurant_merchandise
+    set restaurant_id = #{restaurantId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      photo_address = #{photoAddress,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      number = #{number,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--  手动补充  -->
+  <select id="listRestaurantMerchandiseByPage"  resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from consumer_address
+    where restaurant_id = #{restaurantId, jdbcType=INTEGER}
+    order by `time` desc
+    limit #{star,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+  </select>
+
+  <select id="countSumByRestaurantId" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+    select count(*)
+    from consumer_address
+    where restaurant_id = #{restaurantId, jdbcType=INTEGER}
+  </select>
+</mapper>
